@@ -19,7 +19,7 @@ USER 10001
 
 WORKDIR /home/work-dir/
 
-COPY --from=ballerina-build /home/work-dir/service/target/bin/sse-0.1.0.jar /home/work-dir/
+COPY --from=ballerina-build /home/work-dir/service/target/bin/sse.jar /home/work-dir/
 
 EXPOSE 8000
 
