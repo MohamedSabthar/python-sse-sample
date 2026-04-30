@@ -1,23 +1,33 @@
 import ballerina/http;
-import ballerina/lang.runtime;
-import ballerina/time;
+
+import xlibb/pipe;
+
+isolated pipe:Pipe pipe = new (10);
 
 class EventStream {
     private int count = 0;
 
     public isolated function next() returns record {|http:SseEvent value;|}|error? {
         self.count += 1;
-        string timestamp = time:utcToString(time:utcNow()).substring(11, 19);
-        json data = {value: string`message ${self.count} at ${timestamp}`};
-        runtime:sleep(1);
-        if self.count % 10 == 0 {
-            return {value: {data: data.toJsonString()}};
+        lock {
+            json|error data = pipe.consume(timeout = 15);
+            if data is json {
+                return {value: {data: data.toJsonString()}};
+            }
         }
         return {value: {comment: "ping"}};
     }
 }
 
 service / on new http:Listener(8000) {
+
+    resource function post data(@http:Payload json data) returns json|error {
+        lock {
+            check pipe.produce(data.cloneReadOnly(), timeout = 10);
+        }
+        return data;
+    }
+
     resource function get events() returns http:Response|error {
         http:Response response = new;
         stream<http:SseEvent, error?> mystream = new (new EventStream());
