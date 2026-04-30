@@ -15,8 +15,17 @@ class EventStream {
 }
 
 service / on new http:Listener(8000) {
-    resource function get events() returns stream<http:SseEvent, error?> {
-        return new stream<http:SseEvent, error?>(new EventStream());
+    resource function get events() returns http:Response|error {
+        http:Response response = new;
+        response.removeAllHeaders();
+        stream<http:SseEvent, error?> mystream = new (new EventStream());
+        response.setSseEventStream(mystream);
+        response.setHeader("Content-Type", "text/event-stream");
+        response.setHeader("Cache-Control", "no-cache, no-transform");
+        response.setHeader("Connection", "keep-alive");
+        response.setHeader("X-Accel-Buffering", "no");
+        response.setHeader("Content-Encoding", "identity");
+        return response;
     }
 
     resource function get .() returns json {
