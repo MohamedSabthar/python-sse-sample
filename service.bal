@@ -9,9 +9,8 @@ class EventStream {
         self.count += 1;
         string timestamp = time:utcToString(time:utcNow()).substring(11, 19);
         json data = {value: string`message ${self.count} at ${timestamp}`};
-        http:SseEvent event = {data: data.toJsonString()};
         runtime:sleep(1);
-        return {value: event};
+        return {value: {data: data.toJsonString()}};
     }
 }
 
