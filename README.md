@@ -2,11 +2,6 @@
 
 A simple [Server-Sent Events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) endpoint built with FastAPI and managed with [uv](https://docs.astral.sh/uv/).
 
-## Requirements
-
-- Python 3.13+
-- [uv](https://docs.astral.sh/uv/getting-started/installation/)
-
 ## Setup
 
 ```bash
