@@ -8,7 +8,8 @@ class EventStream {
     public isolated function next() returns record {|http:SseEvent value;|}|error? {
         self.count += 1;
         string timestamp = time:utcToString(time:utcNow()).substring(11, 19);
-        http:SseEvent event = {data: string `message ${self.count} at ${timestamp}`};
+        json data = {value: string`message ${self.count} at ${timestamp}`};
+        http:SseEvent event = {data: data.toJsonString()};
         runtime:sleep(1);
         return {value: event};
     }
