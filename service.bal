@@ -10,7 +10,10 @@ class EventStream {
         string timestamp = time:utcToString(time:utcNow()).substring(11, 19);
         json data = {value: string`message ${self.count} at ${timestamp}`};
         runtime:sleep(1);
-        return {value: {data: data.toJsonString()}};
+        if self.count % 10 == 0 {
+            return {value: {data: data.toJsonString()}};
+        }
+        return {value: {comment: "ping"}};
     }
 }
 
