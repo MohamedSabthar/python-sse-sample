@@ -23,4 +23,4 @@ COPY --from=ballerina-build /home/work-dir/service/target/bin/sse.jar /home/work
 
 EXPOSE 8000
 
-CMD java -jar sse-0.1.0.jar
+CMD java -jar sse.jar

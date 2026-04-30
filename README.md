@@ -59,4 +59,4 @@ A blank line (`\n\n`) terminates each event.
 bal build
 ```
 
-Produces `target/bin/sse-0.1.0.jar`.
+Produces `target/bin/sse.jar`.
