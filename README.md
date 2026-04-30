@@ -1,17 +1,15 @@
-# sse-python
+# sse-ballerina
 
-A simple [Server-Sent Events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) endpoint built with FastAPI and managed with [uv](https://docs.astral.sh/uv/).
+A simple [Server-Sent Events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) endpoint built with [Ballerina](https://ballerina.io/).
 
-## Setup
+## Prerequisites
 
-```bash
-uv sync
-```
+Install Ballerina Swan Lake Update 12 (2201.12.0) from [ballerina.io/downloads](https://ballerina.io/downloads/).
 
 ## Run
 
 ```bash
-uv run uvicorn main:app --reload
+bal run
 ```
 
 The server starts at `http://localhost:8000`.
@@ -39,7 +37,9 @@ source.onmessage = (e) => console.log(e.data);
 **Output:**
 ```
 data: message 1 at 14:32:01
+
 data: message 2 at 14:32:02
+
 data: message 3 at 14:32:03
 ```
 
@@ -52,3 +52,11 @@ data: <payload>\n\n
 ```
 
 A blank line (`\n\n`) terminates each event.
+
+## Build
+
+```bash
+bal build
+```
+
+Produces `target/bin/sse-0.1.0.jar`.

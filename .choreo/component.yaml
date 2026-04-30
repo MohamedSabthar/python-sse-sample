@@ -2,7 +2,7 @@ schemaVersion: 1.2
 
 endpoints:
   - name: sse-endpoint
-    displayName: SSE Python Service
+    displayName: SSE Ballerina Service
     service:
       basePath: /
       port: 8000

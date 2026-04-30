@@ -1,10 +1,6 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# Ballerina build artifacts
+target/
+*.jar
 
-# Virtual environments
-.venv
+# Ballerina lock file (commit if you want reproducible builds)
+Dependencies.toml

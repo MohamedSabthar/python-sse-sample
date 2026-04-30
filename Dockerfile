@@ -1,14 +1,16 @@
-FROM python:3.13-slim
+FROM ballerina/ballerina:2201.12.0 AS build
 
 WORKDIR /app
+COPY . .
+RUN bal build
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+FROM ballerina/jre21:v2
 
-COPY main.py .
+WORKDIR /app
+COPY --from=build /app/target/bin/sse-0.1.0.jar app.jar
 
 EXPOSE 8000
 
 USER 10014
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["java", "-jar", "app.jar"]
