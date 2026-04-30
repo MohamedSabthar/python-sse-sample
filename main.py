@@ -16,7 +16,8 @@ async def event_stream():
 
 @app.get("/events")
 async def sse():
-    return StreamingResponse(event_stream(), media_type="text/event-stream")
+    headers = {"X-Accel-Buffering": "no"}
+    return StreamingResponse(event_stream(), media_type="text/event-stream", headers=headers)
 
 
 @app.get("/")
